@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore advanced Cross-Site Scripting techniques and bypass methods.">
+    
+    <title>Advanced XSS Techniques</title>
+    
+    <!-- 98.css for Windows 95 styling -->
+    <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.20/dist/98.css">
+    
+    <!-- Custom Windows 95 styles -->
+    <link rel="stylesheet" href="/assets/css/win95.css">
+    
+    <!-- Jekyll feed -->
+    <link rel="alternate" type="application/rss+xml" title="Windows 95 Blog" href="/feed.xml">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/icons/custom-icon.png">
+</head>
+<body>
+    <!-- Hidden main content for SEO -->
+    <main style="display: none;">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Advanced XSS Techniques</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2025-01-03T15:00:00+00:00" itemprop="datePublished">Jan 3, 2025
+            </time></p>
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+        <h1 id="advanced-xss-techniques">Advanced XSS Techniques</h1>
+
+<p>Cross-Site Scripting (XSS) remains one of the most prevalent web vulnerabilities. This post explores advanced techniques used by security researchers and attackers.</p>
+
+<h2 id="xss-categories">XSS Categories</h2>
+
+<h3 id="1-reflected-xss">1. Reflected XSS</h3>
+<p>Reflected XSS occurs when malicious input is immediately reflected back to the user without proper sanitization.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Vulnerable code example</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">userInput</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="2-stored-xss">2. Stored XSS</h3>
+<p>Stored XSS persists malicious code in the database and affects all users who view the infected page.</p>
+
+<h3 id="3-dom-based-xss">3. DOM-based XSS</h3>
+<p>DOM-based XSS occurs when JavaScript modifies the DOM with untrusted input.</p>
+
+<h2 id="advanced-bypass-techniques">Advanced Bypass Techniques</h2>
+
+<h3 id="filter-evasion">Filter Evasion</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Common bypass patterns</span>
+<span class="o">&lt;</span><span class="nx">ScRiPt</span><span class="o">&gt;</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/ScRiPt</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">svg</span> <span class="nx">onload</span><span class="o">=</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="nx">x</span> <span class="nx">onerror</span><span class="o">=</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<h3 id="encoding-bypasses">Encoding Bypasses</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// HTML encoding</span>
+<span class="o">&amp;</span><span class="err">#</span><span class="mi">60</span><span class="p">;</span><span class="nx">script</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">62</span><span class="p">;</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">60</span><span class="p">;</span><span class="sr">/script&amp;#62</span><span class="err">;
+</span>
+<span class="c1">// URL encoding</span>
+<span class="o">%</span><span class="mi">3</span><span class="nx">Cscript</span><span class="o">%</span><span class="mi">3</span><span class="nc">Ealert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">3</span><span class="nx">C</span><span class="o">/</span><span class="nx">script</span><span class="o">%</span><span class="mi">3</span><span class="nx">E</span>
+
+<span class="c1">// Unicode encoding</span>
+<span class="err">\</span><span class="nx">u003Cscript</span><span class="err">\</span><span class="nf">u003Ealert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="err">\</span><span class="nx">u003C</span><span class="o">/</span><span class="nx">script</span><span class="err">\</span><span class="nx">u003E</span>
+</code></pre></div></div>
+
+<h2 id="real-world-examples">Real-World Examples</h2>
+
+<h3 id="case-study-social-media-platform">Case Study: Social Media Platform</h3>
+<p>A major social media platform was vulnerable to stored XSS through profile bio fields. Attackers could inject malicious JavaScript that would execute for all users viewing the profile.</p>
+
+<h3 id="impact-assessment">Impact Assessment</h3>
+<ul>
+  <li>Session hijacking</li>
+  <li>Credential theft</li>
+  <li>Malicious redirects</li>
+  <li>Data exfiltration</li>
+</ul>
+
+<h2 id="prevention-strategies">Prevention Strategies</h2>
+
+<ol>
+  <li><strong>Input Validation</strong>: Validate all user input</li>
+  <li><strong>Output Encoding</strong>: Encode output based on context</li>
+  <li><strong>Content Security Policy</strong>: Implement CSP headers</li>
+  <li><strong>Regular Testing</strong>: Conduct regular security assessments</li>
+</ol>
+
+<h2 id="interactive-demo">Interactive Demo</h2>
+
+<p>Try the XSS demo in the Cybersecurity Tools section to see these techniques in action!</p>
+
+    </div><a class="u-url" href="/web-security/xss/2025/01/03/advanced-xss/" hidden></a>
+</article>
+
+    </main>
+    
+    <!-- Windows 95 Desktop -->
+    <div id="desktop" class="desktop">
+        <!-- Desktop Icons -->
+        <div class="desktop-icons" id="desktop-icons">
+            <div class="desktop-icon" id="my-computer-icon" data-window="my-computer">
+                <div class="icon-image"><img src="/assets/icons/explorer_100.ico" alt="My Computer"/></div>
+                <div class="icon-label">Computer</div>
+            </div>
+            <div class="desktop-icon" id="recycle-bin-icon" data-window="recycle-bin">
+                <div class="icon-image"><img src="/assets/icons/33.ico" alt="Recycle Bin"/></div>
+                <div class="icon-label">Recycle Bin</div>
+            </div>
+            <div class="desktop-icon" id="internet-explorer-icon" data-window="internet">
+                <div class="icon-image"><img src="/assets/icons/iexplore_32528.ico" alt="Internet Explorer"/></div>
+                <div class="icon-label">Internet Explorer</div>
+            </div>
+            <div class="desktop-icon" id="notepad-icon" data-window="notepad">
+                <div class="icon-image"><img src="/assets/icons/notepad_1.ico" alt="Notepad"/></div>
+                <div class="icon-label">Notepad</div>
+            </div>
+            <div class="desktop-icon" id="cmd-icon" data-window="cmd">
+                <div class="icon-image"><img src="/assets/icons/console_prompt.ico" alt="Command Prompt"/></div>
+                <div class="icon-label">Command Prompt</div>
+            </div>
+            <div class="desktop-icon" id="control-panel-icon" data-window="control-panel">
+                <div class="icon-image"><img src="/assets/icons/36.ico" alt="Control Panel"/></div>
+                <div class="icon-label">Control Panel</div>
+            </div>
+        </div>
+        
+        <!-- Windows Container -->
+        <div id="windows-container"></div>
+        
+        <!-- Taskbar -->
+        <div id="taskbar" class="taskbar">
+            <div class="start-button" id="start-button">
+                <img src="/assets/icons/windows.ico" alt="Start" class="start-icon"/>
+                <span>Start</span>
+            </div>
+            <div class="taskbar-tasks" id="taskbar-tasks">
+                <!-- Task buttons will be added dynamically -->
+            </div>
+            <div class="system-tray" id="system-tray">
+                <img class="tray-icon" id="tray-wifi" src="/assets/icons/internat_151.ico" alt="WiFi"/>
+                <img class="tray-icon" id="tray-volume" src="/assets/icons/mmsys_114.ico" alt="Volume"/>
+                <img class="tray-icon" id="tray-av" src="/assets/icons/mswebcpl_100.ico" alt="Antivirus"/>
+            </div>
+            <div class="taskbar-clock" id="taskbar-clock">
+                <span id="clock-time"></span>
+            </div>
+        </div>
+        
+        <!-- Start Menu -->
+        <div id="start-menu" class="start-menu" style="display: none;">
+            <div class="start-menu-item" data-window="my-computer">
+                <span class="start-menu-icon"><img src="/assets/icons/explorer_100.ico" alt="My Computer"/></span>
+                <span>My Computer</span>
+            </div>
+            <div class="start-menu-item" data-window="file-explorer">
+                <span class="start-menu-icon"><img src="/assets/icons/explorer_101.ico" alt="Explorer"/></span>
+                <span>File Explorer</span>
+            </div>
+            <div class="start-menu-item" data-window="recycle-bin">
+                <span class="start-menu-icon"><img src="/assets/icons/33.ico" alt="Recycle"/></span>
+                <span>Recycle Bin</span>
+            </div>
+            <div class="start-menu-item" data-window="cmd">
+                <span class="start-menu-icon"><img src="/assets/icons/console_prompt.ico" alt="CMD"/></span>
+                <span>Command Prompt</span>
+            </div>
+            <div class="start-menu-divider"></div>
+            <div class="start-menu-group">
+                <div class="start-menu-heading">Programs</div>
+                <div class="start-menu-item" data-window="notepad">
+                    <span class="start-menu-icon"><img src="/assets/icons/notepad_1.ico" alt="Notepad"/></span>
+                    <span>Notepad</span>
+                </div>
+                <div class="start-menu-item" data-window="calculator">
+                    <span class="start-menu-icon"><img src="/assets/icons/calc_SC.ico" alt="Calculator"/></span>
+                    <span>Calculator</span>
+                </div>
+                <div class="start-menu-item" data-window="internet">
+                    <span class="start-menu-icon"><img src="/assets/icons/iexplore_32528.ico" alt="IE"/></span>
+                    <span>Internet Explorer</span>
+                </div>
+                <div class="start-menu-item" data-window="control-panel">
+                    <span class="start-menu-icon"><img src="/assets/icons/36.ico" alt="Control Panel"/></span>
+                    <span>Control Panel</span>
+                </div>
+            </div>
+            <div class="start-menu-group">
+                <div class="start-menu-heading">Cybersecurity Tools</div>
+                <div class="start-menu-item" data-window="xss-demo">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="XSS"/></span>
+                    <span>XSS Demo</span>
+                </div>
+                <div class="start-menu-item" data-window="burp-suite">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="Burp"/></span>
+                    <span>Burp Suite</span>
+                </div>
+                <div class="start-menu-item" data-window="log-analyzer">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="Logs"/></span>
+                    <span>Log Analyzer</span>
+                </div>
+                <div class="start-menu-item" data-window="achievements">
+                    <span class="start-menu-icon"><img src="/assets/icons/certificate.ico" alt="Achievements"/></span>
+                    <span>Achievements</span>
+                </div>
+            </div>
+            <div class="start-menu-group">
+                <div class="start-menu-heading">Quizzes</div>
+                <div class="start-menu-item" data-window="xss-quiz">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="XSS Quiz"/></span>
+                    <span>XSS Quiz</span>
+                </div>
+                <div class="start-menu-item" data-window="sqli-quiz">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="SQLi Quiz"/></span>
+                    <span>SQLi Quiz</span>
+                </div>
+                <div class="start-menu-item" data-window="forensics-quiz">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="Forensics Quiz"/></span>
+                    <span>Forensics Quiz</span>
+                </div>
+                <div class="start-menu-item" data-window="network-quiz">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="Network Quiz"/></span>
+                    <span>Network Quiz</span>
+                </div>
+                <div class="start-menu-item" data-window="webapp-quiz">
+                    <span class="start-menu-icon"><img src="/assets/icons/mshtml_32528.ico" alt="WebApp Quiz"/></span>
+                    <span>WebApp Quiz</span>
+                </div>
+            </div>
+            <div class="start-menu-group">
+                <div class="start-menu-heading">Categories</div>
+                <div class="start-menu-item" data-window="explorer" data-path="C:\\">
+                    <span class="start-menu-icon"><img src="/assets/icons/hard_disk_drive_cool.ico" alt="Bug Hunting"/></span>
+                    <span>Bug Hunting</span>
+                </div>
+                <div class="start-menu-item" data-window="explorer" data-path="D:\\">
+                    <span class="start-menu-icon"><img src="/assets/icons/hard_disk_drive_cool.ico" alt="Penetration Testing"/></span>
+                    <span>Penetration Testing</span>
+                </div>
+                <div class="start-menu-item" data-window="explorer" data-path="F:\\">
+                    <span class="start-menu-icon"><img src="/assets/icons/hard_disk_drive_cool.ico" alt="General"/></span>
+                    <span>General</span>
+                </div>
+            </div>
+            <div class="start-menu-group">
+                <div class="start-menu-heading">Games</div>
+                <div class="start-menu-item" data-window="minesweeper">
+                    <span class="start-menu-icon"><img src="/assets/icons/game_mine_1.ico" alt="Minesweeper"/></span>
+                    <span>Minesweeper</span>
+                </div>
+                <div class="start-menu-item" data-window="quiz">
+                    <span class="start-menu-icon"><img src="/assets/icons/joy_100.ico" alt="Quiz"/></span>
+                    <span>Quiz.exe</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Window Templates -->
+    <template id="window-template">
+        <div class="window" data-window-id="">
+            <div class="title-bar">
+                <div class="title-bar-text"></div>
+                <div class="title-bar-controls">
+                    <button class="title-bar-control minimize" aria-label="Minimize"></button>
+                    <button class="title-bar-control maximize" aria-label="Maximize"></button>
+                    <button class="title-bar-control close" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <!-- Window content goes here -->
+            </div>
+            <!-- Resize handles -->
+            <div class="window-resize-handle n"></div>
+            <div class="window-resize-handle s"></div>
+            <div class="window-resize-handle e"></div>
+            <div class="window-resize-handle w"></div>
+            <div class="window-resize-handle nw"></div>
+            <div class="window-resize-handle ne"></div>
+            <div class="window-resize-handle sw"></div>
+            <div class="window-resize-handle se"></div>
+        </div>
+    </template>
+    
+    <!-- Calendar Template -->
+    <template id="calendar-template">
+        <div class="calendar95">
+            <div class="calendar-toolbar">
+                <button class="toolbar-button" id="cal-prev">◀</button>
+                <div class="calendar-title" id="cal-title">1995</div>
+                <button class="toolbar-button" id="cal-next">▶</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+        </div>
+    </template>
+
+    <!-- Internet Explorer Template (Tabbed) -->
+    <template id="internet-template">
+        <div class="internet95">
+            <div class="ie-tabs" id="ie-tabs">
+                <div class="ie-tab active" data-page="google">Google</div>
+                <div class="ie-tab" data-page="blog">Blog</div>
+                <div class="ie-tab" data-page="easter">Easter</div>
+                <div class="ie-tab-add" id="ie-tab-add">+</div>
+            </div>
+            <div class="dialup-overlay" id="dialup-overlay">
+                <div class="dialup-box">
+                    <img class="dialup-icon" src="/assets/icons/inetcfg_2301.ico" alt="Dialup"/>
+                    <div class="dialup-text">Connecting to the Internet...</div>
+                    <div class="dialup-status">Dialing 1-800-INTERNET</div>
+                    <div class="dialup-progress">
+                        <div class="bar"></div>
+                    </div>
+                    <div class="dialup-steps">
+                        <div class="step" id="step1">Initializing modem...</div>
+                        <div class="step" id="step2">Dialing number...</div>
+                        <div class="step" id="step3">Negotiating connection...</div>
+                        <div class="step" id="step4">Connected!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ie-toolbar">
+                <button class="toolbar-button" id="ie-back">← Back</button>
+                <button class="toolbar-button" id="ie-forward">Forward →</button>
+                <button class="toolbar-button" id="ie-stop">Stop</button>
+                <button class="toolbar-button" id="ie-refresh">Refresh</button>
+                <button class="toolbar-button" id="ie-home">Home</button>
+            </div>
+            <div class="ie-content">
+                <div id="ie-list" class="file-list"></div>
+                <div id="ie-google" class="ie-page" style="display:none;">
+                    <div class="google95">
+                        <div class="google-header">
+                            <img src="/assets/icons/iexplore_32528.ico" alt="Google" class="google-icon"/>
+                            <h3>Google 95</h3>
+                        </div>
+                        <div class="google-search-box">
+                            <input type="text" id="google-query" placeholder="Search the World Wide Web..."/>
+                            <button id="google-search" class="toolbar-button">Search</button>
+                        </div>
+                        <div class="google-links">
+                            <a href="#" class="google-link">Yahoo!</a>
+                            <a href="#" class="google-link">AltaVista</a>
+                            <a href="#" class="google-link">Excite</a>
+                            <a href="#" class="google-link">Lycos</a>
+                        </div>
+                        <div id="google-results" class="ie-results"></div>
+                    </div>
+                </div>
+                <div id="ie-blog" class="ie-page" style="display:none;">
+                    <div class="blog95">
+                        <div class="blog-header">
+                            <h3>🏠 Welcome to My Homepage!</h3>
+                            <p>Under Construction - Best viewed with Netscape Navigator</p>
+                        </div>
+                        <div class="blog-search">
+                            <input type="text" id="blog-query" placeholder="Search my homepage..."/>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-section">
+                                <h4>🌟 My Favorite Links</h4>
+                                <ul>
+                                    <li><a href="#" class="blog-link">Cool Site of the Day</a></li>
+                                    <li><a href="#" class="blog-link">WebCrawler</a></li>
+                                    <li><a href="#" class="blog-link">GeoCities</a></li>
+                                </ul>
+                            </div>
+                            <div class="blog-section">
+                                <h4>📝 My Blog Posts</h4>
+                                <div id="blog-results" class="ie-results"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ie-easter" class="ie-page" style="display:none;">
+                    <div class="easter95">
+                        <h3>🎉 You Found the Secret Page!</h3>
+                        <p>Welcome to the hidden corner of the internet!</p>
+                        <div class="easter-content">
+                            <p>This is where I hide my secret thoughts...</p>
+                            <p>Just kidding! This is just a fun easter egg. ☺</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Tray Popups Templates -->
+    <template id="tray-wifi-popup">
+        <div class="tray-popup">
+            <div>WiFi: <span id="wifi-status">Disconnected</span></div>
+            <button class="toolbar-button" id="wifi-toggle">Toggle</button>
+        </div>
+    </template>
+    <template id="tray-volume-popup">
+        <div class="tray-popup">
+            <div>Volume</div>
+            <input type="range" id="volume-slider" min="0" max="100" value="100"/>
+        </div>
+    </template>
+    <template id="tray-av-popup">
+        <div class="tray-popup">
+            <div>Antivirus</div>
+            <div>System Secure</div>
+        </div>
+    </template>
+
+    <!-- Achievement Toast (removed duplicate simple variant; using rich notification below) -->
+
+    <!-- File Viewer Template -->
+    <template id="file-viewer-template">
+        <div class="file-viewer95">
+            <pre class="file-viewer-content" id="file-viewer-content"></pre>
+        </div>
+    </template>
+
+    <!-- Notepad Template -->
+    <template id="notepad-template">
+        <div class="notepad95">
+            <div class="notepad-menu-bar">
+                <div class="menu-item" id="notepad-file-menu">
+                    <span>File</span>
+                    <div class="menu-dropdown" id="notepad-file-dropdown">
+                        <div class="menu-option" id="notepad-new-option">New</div>
+                        <div class="menu-option" id="notepad-open-option">Open...</div>
+                        <div class="menu-option" id="notepad-save-option">Save</div>
+                        <div class="menu-option" id="notepad-save-as-option">Save As...</div>
+                        <div class="menu-separator"></div>
+                        <div class="menu-option" id="notepad-exit-option">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item" id="notepad-edit-menu">
+                    <span>Edit</span>
+                    <div class="menu-dropdown" id="notepad-edit-dropdown">
+                        <div class="menu-option" id="notepad-undo-option">Undo</div>
+                        <div class="menu-separator"></div>
+                        <div class="menu-option" id="notepad-cut-option">Cut</div>
+                        <div class="menu-option" id="notepad-copy-option">Copy</div>
+                        <div class="menu-option" id="notepad-paste-option">Paste</div>
+                        <div class="menu-option" id="notepad-delete-option">Delete</div>
+                        <div class="menu-separator"></div>
+                        <div class="menu-option" id="notepad-select-all-option">Select All</div>
+                    </div>
+                </div>
+                <div class="menu-item" id="notepad-search-menu">
+                    <span>Search</span>
+                    <div class="menu-dropdown" id="notepad-search-dropdown">
+                        <div class="menu-option" id="notepad-find-option">Find...</div>
+                        <div class="menu-option" id="notepad-find-next-option">Find Next</div>
+                    </div>
+                </div>
+            </div>
+            <div class="notepad-toolbar">
+                <button class="toolbar-button" id="notepad-new">New</button>
+                <button class="toolbar-button" id="notepad-save">Save</button>
+                <button class="toolbar-button" id="notepad-delete">Delete</button>
+                <div class="toolbar-separator"></div>
+                <button class="toolbar-button" id="notepad-cut">Cut</button>
+                <button class="toolbar-button" id="notepad-copy">Copy</button>
+                <button class="toolbar-button" id="notepad-paste">Paste</button>
+            </div>
+            <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Start typing…"></textarea>
+        </div>
+    </template>
+
+    <!-- Calculator Template -->
+    <template id="calculator-template">
+        <div class="calculator95">
+            <input type="text" id="calc-display" class="calc-display" readonly>
+            <div class="calc-buttons" id="calc-buttons"></div>
+        </div>
+    </template>
+
+    <!-- Minesweeper Template -->
+    <template id="minesweeper-template">
+        <div class="minesweeper95">
+            <div class="mine-toolbar">
+                <button class="toolbar-button" id="mine-reset">Reset</button>
+                <span class="mine-status" id="mine-status">Have fun!</span>
+            </div>
+            <div class="mine-grid" id="mine-grid"></div>
+        </div>
+    </template>
+
+    <!-- XSS Demo Template -->
+    <template id="xss-demo-template">
+        <div class="xss-demo-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Burp Suite Template -->
+    <template id="burp-suite-template">
+        <div class="burp-suite-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Log Analyzer Template -->
+    <template id="log-analyzer-template">
+        <div class="log-analyzer-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Hidden Challenges Template -->
+    <template id="hidden-challenges-template">
+        <div class="hidden-challenges-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Network Neighborhood Template -->
+    <template id="network-neighborhood-template">
+        <div class="network-neighborhood-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Malware Museum Template -->
+    <template id="malware-museum-template">
+        <div class="malware-museum-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Blue Team Template -->
+    <template id="blue-team-template">
+        <div class="blue-team-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Achievements Template -->
+    <template id="achievements-template">
+        <div class="achievements-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </template>
+
+    <!-- Achievement Notification Template -->
+    <template id="achievement-template">
+        <div class="achievement-notification">
+            <div class="achievement-content">
+                <div class="achievement-icon">🏆</div>
+                <div class="achievement-text">
+                    <div class="achievement-title">Achievement Unlocked!</div>
+                    <div class="achievement-name"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- File Explorer Template -->
+    <template id="file-explorer-template">
+        <div class="file-explorer">
+            <div class="explorer-tabs" id="explorer-tabs">
+                <div class="explorer-tab active" data-tab="drives">
+                    <span>My Computer</span>
+                    <span class="explorer-tab-close" data-tab="drives">×</span>
+                </div>
+                <div class="explorer-tab-add" id="explorer-tab-add">+</div>
+            </div>
+            <div class="toolbar">
+                <button class="toolbar-button" id="back-btn">← Back</button>
+                <button class="toolbar-button" id="forward-btn">Forward →</button>
+                <button class="toolbar-button" id="up-btn">↑ Up</button>
+                <div class="address-bar">
+                    <input type="text" id="address-input" placeholder="C:\" value="drives">
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search posts...">
+                </div>
+            </div>
+            <div class="explorer-content">
+                <div class="sidebar">
+                    <div class="tree-view">
+                        <div class="tree-item" data-path="drives" data-expanded="false">
+                            <span class="tree-toggle">+</span>
+                            <span class="tree-icon"><img src="/assets/icons/explorer_100.ico" alt="My Computer"/></span>
+                            <span class="tree-label">My Computer</span>
+                        </div>
+                        <div class="tree-children" id="drives-children" style="display: none;">
+                            <div class="tree-item" data-drive="C:\\" data-expanded="false">
+                                <span class="tree-toggle">+</span>
+                                <span class="tree-icon"><img src="/assets/icons/hard_disk_drive_cool.ico" alt="C:"/></span>
+                                <span class="tree-label">C:\ Bug Bounty</span>
+                            </div>
+                            <div class="tree-item" data-drive="D:\\" data-expanded="false">
+                                <span class="tree-toggle">+</span>
+                                <span class="tree-icon"><img src="/assets/icons/hard_disk_drive_cool.ico" alt="D:"/></span>
+                                <span class="tree-label">D:\ Web Security</span>
+                            </div>
+                            <div class="tree-item" data-drive="F:\\" data-expanded="false">
+                                <span class="tree-toggle">+</span>
+                                <span class="tree-icon"><img src="/assets/icons/hard_disk_drive_cool.ico" alt="F:"/></span>
+                                <span class="tree-label">F:\ General</span>
+                            </div>
+                            <div class="tree-item" data-drive="News:\\" data-expanded="false">
+                                <span class="tree-toggle">+</span>
+                                <span class="tree-icon"><img src="/assets/icons/envelope_open_sheet.ico" alt="News:"/></span>
+                                <span class="tree-label">News:\</span>
+                            </div>
+                            <div class="tree-item" data-drive="Virus:\\" data-expanded="false">
+                                <span class="tree-toggle">+</span>
+                                <span class="tree-icon"><img src="/assets/icons/erase_file.ico" alt="Virus:"/></span>
+                                <span class="tree-label">Virus:\</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div id="file-list" class="file-list">
+                        <!-- Files will be populated here -->
+                    </div>
+                </div>
+            </div>
+            <div class="explorer-status-bar" id="explorer-status-bar">
+                <div class="status-left">
+                    <div class="status-item">
+                        <span id="status-files">0 files</span>
+                    </div>
+                    <div class="status-item" id="status-selected" style="display: none;">
+                        <span id="selected-file-name"></span>
+                        <span id="selected-file-size"></span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <span id="status-space">512MB free of 1GB</span>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Control Panel Template -->
+    <template id="control-panel-template">
+        <div class="control-panel95">
+            <div class="toolbar">
+                <button class="toolbar-button" data-tab="display">Display</button>
+                <button class="toolbar-button" data-tab="sounds">Sounds</button>
+                <button class="toolbar-button" data-tab="about">About</button>
+            </div>
+            <div class="cp-content">
+                <div class="cp-tab" data-tab="display">
+                    <div>Wallpaper:</div>
+                    <select id="cp-wallpaper-select"></select>
+                    <button class="toolbar-button" id="cp-apply-wallpaper">Apply</button>
+                </div>
+                <div class="cp-tab" data-tab="sounds" style="display:none;">
+                    <label><input type="checkbox" id="cp-sounds-toggle" checked> Enable system sounds</label>
+                </div>
+                <div class="cp-tab" data-tab="about" style="display:none;">
+                    <div class="about-box">
+                        <h3>Windows 95 Blog</h3>
+                        <p>Retro cybersecurity OS simulation.</p>
+                        <p>Credits: 0xNajjar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Recycle Bin Template -->
+    <template id="recycle-bin-template">
+        <div class="recycle-bin">
+            <div class="recycle-bin-content">
+                <div class="recycle-bin-icon"><img src="/assets/icons/msnp32_FOLDER_ICON.ico" alt="Recycle"/></div>
+                <h3>Recycle Bin</h3>
+                <div class="file-list" id="recycle-file-list"></div>
+                <div id="recycle-empty-message" class="recycle-empty" style="display: none;">
+                    <p>The Recycle Bin is empty.</p>
+                    <p><em>Deleted drafts and notes will appear here.</em></p>
+                </div>
+                <p><em>Contains deleted drafts and system files.</em></p>
+            </div>
+        </div>
+    </template>
+    
+    <!-- CMD Template -->
+    <template id="cmd-template">
+        <div class="cmd-window">
+            <div class="cmd-header">
+                <span>Command Prompt</span>
+            </div>
+            <div class="cmd-content">
+                <div id="cmd-output" class="cmd-output">
+                    <div class="cmd-line">
+                        <span class="cmd-prompt">C:\></span>
+                        <span class="cmd-text">Welcome to Windows 95 Blog Command Line</span>
+                    </div>
+                    <div class="cmd-line">
+                        <span class="cmd-prompt">C:\></span>
+                        <span class="cmd-text">Type 'help' for available commands</span>
+                    </div>
+                </div>
+                <div class="cmd-input-line">
+                    <span class="cmd-prompt">C:\></span>
+                    <input type="text" id="cmd-input" class="cmd-input" autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Post Window Template -->
+    <template id="post-template">
+        <div class="post-window">
+            <div class="post-menu-bar">
+                <div class="menu-item" id="file-menu">
+                    <span>File</span>
+                    <div class="menu-dropdown" id="file-dropdown">
+                        <div class="menu-option" id="print-option">Print...</div>
+                        <div class="menu-option" id="save-option">Save</div>
+                        <div class="menu-separator"></div>
+                        <div class="menu-option" id="exit-option">Exit</div>
+                    </div>
+                </div>
+                <div class="menu-item" id="edit-menu">
+                    <span>Edit</span>
+                    <div class="menu-dropdown" id="edit-dropdown">
+                        <div class="menu-option" id="copy-option">Copy</div>
+                        <div class="menu-option" id="select-all-option">Select All</div>
+                    </div>
+                </div>
+                <div class="menu-item" id="view-menu">
+                    <span>View</span>
+                    <div class="menu-dropdown" id="view-dropdown">
+                        <div class="menu-option" id="zoom-in-option">Zoom In</div>
+                        <div class="menu-option" id="zoom-out-option">Zoom Out</div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-toolbar">
+                <button class="toolbar-button" id="print-post">Print</button>
+                <button class="toolbar-button" id="save-post">Save</button>
+                <div class="toolbar-separator"></div>
+                <button class="toolbar-button" id="zoom-in">Zoom In</button>
+                <button class="toolbar-button" id="zoom-out">Zoom Out</button>
+            </div>
+            <div class="post-content" id="post-content">
+                <!-- Post content will be rendered here -->
+            </div>
+            <div class="post-status-bar">
+                <span id="post-status">Ready</span>
+                <span id="post-page-info">Page 1 of 1</span>
+            </div>
+        </div>
+    </template>
+
+    <!-- Quiz Template -->
+    <template id="quiz-template">
+        <div class="quiz95">
+            <div class="quiz-header">
+                <h3>Cybersecurity Quiz</h3>
+                <div class="quiz-score">Score: <span id="quiz-score">0</span>/<span id="quiz-total">0</span></div>
+            </div>
+            <div class="quiz-content">
+                <div id="quiz-question" class="quiz-question"></div>
+                <div id="quiz-options" class="quiz-options"></div>
+                <div class="quiz-controls">
+                    <button class="toolbar-button" id="quiz-next">Next</button>
+                    <button class="toolbar-button" id="quiz-restart">Restart</button>
+                </div>
+            </div>
+            <div id="quiz-results" class="quiz-results" style="display: none;">
+                <h3>Quiz Complete!</h3>
+                <div id="quiz-final-score"></div>
+                <button class="toolbar-button" id="quiz-play-again">Play Again</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Print Queue Template -->
+    <template id="print-queue-template">
+        <div class="print-queue95">
+            <div class="print-toolbar">
+                <button class="toolbar-button" id="print-clear">Clear Queue</button>
+            </div>
+            <div class="print-queue-content">
+                <table class="print-queue-table">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody id="print-queue-list">
+                        <!-- Print jobs will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <!-- News Template -->
+    <template id="news-template">
+        <div class="news95">
+            <div class="news-content" id="news-content">
+                <!-- News content will be rendered here -->
+            </div>
+        </div>
+    </template>
+
+    <!-- Virus Template -->
+    <template id="virus-template">
+        <div class="virus95">
+            <div class="virus-content" id="virus-content">
+                <!-- Virus content will be rendered here -->
+            </div>
+        </div>
+    </template>
+    
+    <!-- JavaScript -->
+    <script src="/assets/js/win95.js"></script>
+    <script src="/assets/js/demos.js"></script>
+</body>
+</html>

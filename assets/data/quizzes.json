@@ -1,0 +1,187 @@
+{
+  "xss-quiz": {
+    "title": "XSS Quiz",
+    "description": "Test your knowledge of Cross-Site Scripting vulnerabilities",
+    "icon": "mshtml_32528.ico",
+    "questions": [
+      {
+        "question": "What does XSS stand for?",
+        "options": ["Cross-Site Scripting", "Cross-Site Security", "Cross-Site Session", "Cross-Site Service"],
+        "correct": 0,
+        "explanation": "XSS stands for Cross-Site Scripting, a vulnerability that allows attackers to inject malicious scripts into web pages."
+      },
+      {
+        "question": "Which of the following is NOT a type of XSS?",
+        "options": ["Reflected XSS", "Stored XSS", "DOM-based XSS", "Server-side XSS"],
+        "correct": 3,
+        "explanation": "Server-side XSS is not a valid type. The three main types are Reflected, Stored, and DOM-based XSS."
+      },
+      {
+        "question": "What is the primary defense against XSS attacks?",
+        "options": ["Input validation", "Output encoding", "HTTPS", "Firewall"],
+        "correct": 1,
+        "explanation": "Output encoding is the primary defense, ensuring that user input is properly escaped when displayed."
+      },
+      {
+        "question": "Which HTML attribute is commonly exploited in XSS attacks?",
+        "options": ["src", "href", "onclick", "All of the above"],
+        "correct": 3,
+        "explanation": "All of these attributes can be exploited if user input is not properly sanitized."
+      },
+      {
+        "question": "What does CSP stand for in XSS prevention?",
+        "options": ["Content Security Policy", "Cross-Site Protection", "Code Security Protocol", "Content Safety Policy"],
+        "correct": 0,
+        "explanation": "Content Security Policy (CSP) is a security standard that helps prevent XSS attacks."
+      }
+    ]
+  },
+  "sqli-quiz": {
+    "title": "SQL Injection Quiz",
+    "description": "Test your knowledge of SQL injection vulnerabilities and prevention",
+    "icon": "mshtml_32528.ico",
+    "questions": [
+      {
+        "question": "What is SQL injection?",
+        "options": ["A database optimization technique", "A type of malware", "A vulnerability that allows SQL code injection", "A backup method"],
+        "correct": 2,
+        "explanation": "SQL injection is a vulnerability that allows attackers to inject malicious SQL code into database queries."
+      },
+      {
+        "question": "Which of the following is the most effective way to prevent SQL injection?",
+        "options": ["Input validation", "Prepared statements", "Output encoding", "HTTPS"],
+        "correct": 1,
+        "explanation": "Prepared statements (parameterized queries) are the most effective defense against SQL injection."
+      },
+      {
+        "question": "What does UNION-based SQL injection do?",
+        "options": ["Combines multiple queries", "Deletes data", "Creates new tables", "Encrypts data"],
+        "correct": 0,
+        "explanation": "UNION-based SQL injection combines the results of multiple SELECT statements."
+      },
+      {
+        "question": "Which character is commonly used to comment out SQL code?",
+        "options": ["--", "//", "/*", "All of the above"],
+        "correct": 3,
+        "explanation": "All of these can be used for commenting in SQL, though -- is most common in SQL injection attacks."
+      },
+      {
+        "question": "What is blind SQL injection?",
+        "options": ["Injection without visual feedback", "Injection using blind users", "Injection in dark mode", "Injection without database"],
+        "correct": 0,
+        "explanation": "Blind SQL injection occurs when the application doesn't return the results of the SQL query."
+      }
+    ]
+  },
+  "forensics-quiz": {
+    "title": "Digital Forensics Quiz",
+    "description": "Test your knowledge of digital forensics and incident response",
+    "icon": "mshtml_32528.ico",
+    "questions": [
+      {
+        "question": "What is the first step in digital forensics?",
+        "options": ["Analysis", "Collection", "Preservation", "Reporting"],
+        "correct": 2,
+        "explanation": "Preservation is the first step - ensuring evidence is not altered or destroyed."
+      },
+      {
+        "question": "What does MD5 stand for in forensics?",
+        "options": ["Message Digest 5", "Memory Data 5", "Media Drive 5", "Master Data 5"],
+        "correct": 0,
+        "explanation": "MD5 (Message Digest 5) is a cryptographic hash function used to verify file integrity."
+      },
+      {
+        "question": "Which tool is commonly used for memory forensics?",
+        "options": ["Volatility", "Autopsy", "EnCase", "FTK"],
+        "correct": 0,
+        "explanation": "Volatility is a popular open-source tool for memory forensics and analysis."
+      },
+      {
+        "question": "What is a write blocker used for?",
+        "options": ["Preventing data modification", "Blocking malware", "Encrypting drives", "Compressing files"],
+        "correct": 0,
+        "explanation": "A write blocker prevents any modifications to the original evidence during analysis."
+      },
+      {
+        "question": "What does RAM stand for in computer forensics?",
+        "options": ["Random Access Memory", "Read Access Memory", "Remote Access Memory", "Rapid Access Memory"],
+        "correct": 0,
+        "explanation": "RAM (Random Access Memory) is volatile memory that can contain valuable forensic evidence."
+      }
+    ]
+  },
+  "network-quiz": {
+    "title": "Network Security Quiz",
+    "description": "Test your knowledge of network security and protocols",
+    "icon": "mshtml_32528.ico",
+    "questions": [
+      {
+        "question": "What port does HTTPS typically use?",
+        "options": ["80", "443", "8080", "21"],
+        "correct": 1,
+        "explanation": "HTTPS typically uses port 443, while HTTP uses port 80."
+      },
+      {
+        "question": "What is a man-in-the-middle attack?",
+        "options": ["A type of malware", "An attack where the attacker intercepts communication", "A network protocol", "A firewall rule"],
+        "correct": 1,
+        "explanation": "A man-in-the-middle attack occurs when an attacker intercepts and potentially modifies communication between two parties."
+      },
+      {
+        "question": "Which protocol is connectionless?",
+        "options": ["TCP", "UDP", "HTTP", "FTP"],
+        "correct": 1,
+        "explanation": "UDP (User Datagram Protocol) is connectionless, while TCP is connection-oriented."
+      },
+      {
+        "question": "What does VPN stand for?",
+        "options": ["Virtual Private Network", "Very Private Network", "Virtual Public Network", "Verified Private Network"],
+        "correct": 0,
+        "explanation": "VPN stands for Virtual Private Network, providing secure communication over public networks."
+      },
+      {
+        "question": "Which tool is used for network packet analysis?",
+        "options": ["Wireshark", "Nmap", "Metasploit", "Burp Suite"],
+        "correct": 0,
+        "explanation": "Wireshark is a popular network protocol analyzer for capturing and analyzing network traffic."
+      }
+    ]
+  },
+  "webapp-quiz": {
+    "title": "Web Application Security Quiz",
+    "description": "Test your knowledge of web application vulnerabilities and security",
+    "icon": "mshtml_32528.ico",
+    "questions": [
+      {
+        "question": "What is CSRF?",
+        "options": ["Cross-Site Request Forgery", "Cross-Site Resource Fetching", "Cross-Site Response Format", "Cross-Site Request Format"],
+        "correct": 0,
+        "explanation": "CSRF (Cross-Site Request Forgery) forces users to perform actions they didn't intend to."
+      },
+      {
+        "question": "What is the OWASP Top 10?",
+        "options": ["A list of top hackers", "A security framework", "A list of most critical web application security risks", "A programming language"],
+        "correct": 2,
+        "explanation": "The OWASP Top 10 is a list of the most critical web application security risks."
+      },
+      {
+        "question": "What is session hijacking?",
+        "options": ["Stealing user credentials", "Taking control of a user's session", "Hacking the server", "Breaking encryption"],
+        "correct": 1,
+        "explanation": "Session hijacking involves taking control of a user's session to impersonate them."
+      },
+      {
+        "question": "What is input validation?",
+        "options": ["Checking if input is correct", "Encrypting input", "Deleting input", "Ignoring input"],
+        "correct": 0,
+        "explanation": "Input validation checks if user input meets expected criteria and is safe to process."
+      },
+      {
+        "question": "What is a security header?",
+        "options": ["A firewall rule", "An HTTP response header that enhances security", "A password", "A certificate"],
+        "correct": 1,
+        "explanation": "Security headers are HTTP response headers that enhance the security of web applications."
+      }
+    ]
+  }
+}
