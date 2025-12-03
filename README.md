@@ -1,4 +1,4 @@
-# Cyber95 - Windows 95 Cybersecurity Interactive OS
+# Cyber95 — Windows 95 Cybersecurity Interactive OS
 
 A specialized cybersecurity educational platform built with Jekyll, featuring an authentic Windows 95 interface with interactive cybersecurity demos, challenges, and educational content.
 
